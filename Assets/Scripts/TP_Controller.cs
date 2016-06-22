@@ -13,6 +13,8 @@ public class TP_Controller : MonoBehaviour
 	#region Cache components
 	public static CharacterController characterController;
 	public static TP_Controller instance;
+
+	CAM_ElectroVision vision;
 	#endregion
 
 	// Awake is called before Start
@@ -21,6 +23,7 @@ public class TP_Controller : MonoBehaviour
 		characterController = GetComponent<CharacterController>();
 		instance = this;
 
+		vision = Camera.main.GetComponent<CAM_ElectroVision>();
 		// Using the old camera system
 		//TP_Camera.UseExistingOrCreateNewMainCamera();
 	}
@@ -36,9 +39,11 @@ public class TP_Controller : MonoBehaviour
 
 		TP_Movement.instance.MovementUpdate();
 
-        if(Input.GetKeyDown("p")) {
-            Application.LoadLevel("Loading");
-        }
+		if(Input.GetKeyDown(KeyCode.LeftShift))
+			vision.enabled = true;
+		else if(Input.GetKeyUp(KeyCode.LeftShift))
+			vision.enabled = false;
+
 	}
 
 	void GetLocomotionInput()
