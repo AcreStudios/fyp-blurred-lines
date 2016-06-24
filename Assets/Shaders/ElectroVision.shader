@@ -4,9 +4,9 @@
 	{
 		Tags
 		{
-			"Queue" = "Transparent"
+			"Queue" = "Background"
 		}
-
+		LOD 100
 		ZTest Always
 		ZWrite Off
 		Blend One One
