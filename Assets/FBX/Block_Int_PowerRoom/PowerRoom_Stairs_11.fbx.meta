@@ -1,22 +1,15 @@
 fileFormatVersion: 2
-guid: 9627bfba451d9bf48ba6b244a3453ceb
-timeCreated: 1466938646
+guid: e51d75c510675224b8b9991be21e9fc7
+timeCreated: 1466938948
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Door
-    100002: //RootNode
-    100004: DoorFrame
-    400000: Door
-    400002: //RootNode
-    400004: DoorFrame
-    2300000: Door
-    2300002: DoorFrame
-    3300000: Door
-    3300002: DoorFrame
-    4300000: DoorFrame
-    4300002: Door
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: PowerRoom_Stairs_11
     9500000: //RootNode
   materials:
     importMaterials: 1
