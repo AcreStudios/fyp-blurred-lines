@@ -1,17 +1,15 @@
 fileFormatVersion: 2
-guid: 5348fbbf72109994a98f07656e6e64f0
-timeCreated: 1466170449
+guid: 76980800d58a46a46a7ac78ff8828602
+timeCreated: 1467012246
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: CellRoom_Door_Glass
-    100002: //RootNode
-    400000: CellRoom_Door_Glass
-    400002: //RootNode
-    2300000: CellRoom_Door_Glass
-    3300000: CellRoom_Door_Glass
-    4300000: CellRoom_Door_Glass
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Lift_Door_02
     9500000: //RootNode
   materials:
     importMaterials: 1

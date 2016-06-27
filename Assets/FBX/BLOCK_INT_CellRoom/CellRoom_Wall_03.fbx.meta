@@ -1,40 +1,14 @@
 fileFormatVersion: 2
-guid: 071fcd4abaec6874d807c351966d6931
-timeCreated: 1466170449
+guid: 2b2f146fc92cd594bb11fb52111079fa
+timeCreated: 1467000064
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: CellRoom_Wall_01
-    100002: CellRoom_Wall_02
-    100004: //RootNode
-    100006: CellRoom_Wall_03
-    100008: CellRoom_Wall_03 1
-    100010: CellRoom_Wall_04
-    100012: pCube5
-    100014: polySurface2
-    100016: transform22
-    100018: transform23
-    100020: transform24
-    100022: transform25
-    100024: transform26
-    100026: transform27
-    400000: CellRoom_Wall_01
-    400002: CellRoom_Wall_02
-    400004: //RootNode
-    400006: CellRoom_Wall_03
-    400008: CellRoom_Wall_03 1
-    400010: CellRoom_Wall_04
-    400012: pCube5
-    400014: polySurface2
-    400016: transform22
-    400018: transform23
-    400020: transform24
-    400022: transform25
-    400024: transform26
-    400026: transform27
-    2300000: CellRoom_Wall_03 1
-    3300000: CellRoom_Wall_03 1
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: CellRoom_Wall_03
     9500000: //RootNode
   materials:

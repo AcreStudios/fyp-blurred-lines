@@ -1,44 +1,14 @@
 fileFormatVersion: 2
-guid: 962fcc021d43938479d208930a365a5c
-timeCreated: 1466269106
+guid: 3b6d7e8211ce51f4b912edc56fe05158
+timeCreated: 1467012246
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Lift_Wall_02
-    100004: pCube25
-    100006: pCube26
-    100008: pCube27
-    100010: pCube28
-    100012: pCube29
-    100014: pCube30
-    100016: polySurface38
-    100018: transform56
-    100020: transform57
-    100022: transform58
-    100024: transform59
-    100026: transform60
-    100028: transform61
-    100030: transform62
     400000: //RootNode
-    400002: Lift_Wall_02
-    400004: pCube25
-    400006: pCube26
-    400008: pCube27
-    400010: pCube28
-    400012: pCube29
-    400014: pCube30
-    400016: polySurface38
-    400018: transform56
-    400020: transform57
-    400022: transform58
-    400024: transform59
-    400026: transform60
-    400028: transform61
-    400030: transform62
-    2300000: Lift_Wall_02
-    3300000: Lift_Wall_02
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: Lift_Wall_02
     9500000: //RootNode
   materials:
