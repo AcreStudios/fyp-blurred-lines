@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: ebec3b1a26e9a7f46bce36fa208aa304
-timeCreated: 1467020462
+guid: c5da1a47beffc8e4490b1f74421b2ad2
+timeCreated: 1467025921
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Lift_Wall_03
+    4300000: InitiationRoom_Floor
     9500000: //RootNode
   materials:
     importMaterials: 1
