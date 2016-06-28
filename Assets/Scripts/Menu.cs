@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
-public class Menu : MonoBehaviour {
+public class Menu : MonoBehaviour
+{
 
     public Button startGame;
     public Text startText;
@@ -27,7 +29,7 @@ public class Menu : MonoBehaviour {
 
     IEnumerator TimerThingy() {
         yield return new WaitForSeconds(4);
-        Application.LoadLevel("CAMP_INT_Initiation");
+        SceneManager.LoadScene("CAMP_INT_Initiation");
     }
 
 }

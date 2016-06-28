@@ -8,6 +8,8 @@ public class TP_Controller : MonoBehaviour
 	public string horizontalAxis = "Horizontal";
 	public string verticalAxis = "Vertical";
 	public string jumpButton = "Jump";
+
+	public float interactRange = 10f;
 	#endregion
 
 	#region Cache components
@@ -38,12 +40,6 @@ public class TP_Controller : MonoBehaviour
 		HandleActionInput();
 
 		TP_Movement.instance.MovementUpdate();
-
-		if(Input.GetKeyDown(KeyCode.LeftShift))
-			vision.enabled = true;
-		else if(Input.GetKeyUp(KeyCode.LeftShift))
-			vision.enabled = false;
-
 	}
 
 	void GetLocomotionInput()
@@ -64,6 +60,29 @@ public class TP_Controller : MonoBehaviour
 	{
 		if(Input.GetButton(jumpButton))
 			DoJump();
+
+		// Electrovision
+		if(Input.GetKeyDown(KeyCode.LeftShift))
+			vision.enabled = true;
+		else if(Input.GetKeyUp(KeyCode.LeftShift))
+			vision.enabled = false;
+
+		// Interact
+		if(Input.GetKeyDown(KeyCode.E))
+		{
+			RaycastHit hit;
+			Ray ray = new Ray(Camera.main.transform.position, transform.forward);
+
+			Debug.DrawRay(Camera.main.transform.position, transform.forward * interactRange, Color.green, 1f);
+			if(Physics.Raycast(ray, out hit, interactRange))
+			{
+				Debug.Log(hit.transform.name);
+				if(hit.collider.transform.parent.CompareTag("Door"))
+				{
+					hit.collider.transform.parent.GetComponent<Door_SimpleSlide>().DoorInteract();
+				}
+			}
+		}
 	}
 
 	void DoJump()
