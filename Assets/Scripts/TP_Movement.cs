@@ -66,17 +66,29 @@ public class TP_Movement : MonoBehaviour
 			moveVector = new Vector3(moveVector.x, -1, moveVector.z);
 	}
 
-	public void Jump()
-	{
-		if(TP_Controller.characterController.isGrounded)
-			verticalVelocity = jumpSpeed;
-	}
-
 	void SnapAlignCharacterWithCamera()
 	{
 		if(moveVector.x != 0 || moveVector.z != 0)
 		{
 			trans.rotation = Quaternion.Euler(trans.eulerAngles.x, Camera.main.transform.eulerAngles.y, trans.eulerAngles.z);
 		}
+	}
+
+	public void Jump()
+	{
+		if(TP_Controller.characterController.isGrounded)
+			verticalVelocity = jumpSpeed;
+	}
+
+	public void StartCrouch()
+	{
+		TP_Controller.characterController.height *= .5f;
+		moveSpeed *= .25f;
+	}
+
+	public void StopCrouch()
+	{
+		TP_Controller.characterController.height *= 2f;
+		moveSpeed *= 4f;
 	}
 }

@@ -10,6 +10,8 @@ public class TP_Controller : MonoBehaviour
 	public string jumpButton = "Jump";
 
 	public float interactRange = 10f;
+
+	bool crouching = false;
 	#endregion
 
 	#region Cache components
@@ -70,23 +72,49 @@ public class TP_Controller : MonoBehaviour
 		// Interact
 		if(Input.GetKeyDown(KeyCode.E))
 		{
-			RaycastHit hit;
-			Ray ray = new Ray(Camera.main.transform.position, transform.forward);
+			DoInteraction();
+		}
 
-			Debug.DrawRay(Camera.main.transform.position, transform.forward * interactRange, Color.green, 1f);
-			if(Physics.Raycast(ray, out hit, interactRange))
-			{
-				Debug.Log(hit.transform.name);
-				if(hit.collider.transform.parent.CompareTag("Door"))
-				{
-					hit.collider.transform.parent.GetComponent<Door_SimpleSlide>().DoorInteract();
-				}
-			}
+		if(Input.GetKeyDown(KeyCode.LeftControl))
+		{
+			DoCrouch();
 		}
 	}
 
 	void DoJump()
 	{
 		TP_Movement.instance.Jump();
+	}
+
+	void DoInteraction()
+	{
+		RaycastHit hit;
+		Ray ray = new Ray(Camera.main.transform.position, transform.forward);
+
+		Debug.DrawRay(Camera.main.transform.position, transform.forward * interactRange, Color.green, 1f);
+		if(Physics.Raycast(ray, out hit, interactRange))
+		{
+			Debug.Log(hit.transform.name);
+			if(hit.collider.transform.parent.CompareTag("Door"))
+			{
+				hit.collider.transform.parent.GetComponent<Door_SimpleSlide>().DoorInteract();
+			}
+		}
+	}
+
+	void DoCrouch()
+	{
+		if(!crouching)
+		{
+			crouching = true;
+
+			TP_Movement.instance.StartCrouch();
+		}
+		else
+		{
+			crouching = false;
+
+			TP_Movement.instance.StopCrouch();
+		}	
 	}
 }
