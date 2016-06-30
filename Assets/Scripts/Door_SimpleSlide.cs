@@ -42,7 +42,7 @@ public class Door_SimpleSlide : MonoBehaviour
 	{
 		while(doorModel.transform.position.x != moveToPos.position.x)
 		{
-			doorModel.transform.position = Vector3.MoveTowards(doorModel.transform.position, moveToPos.position, slideSpeed * Time.deltaTime);
+			doorModel.transform.position = Vector3.MoveTowards(doorModel.transform.position, moveToPos.position, slideSpeed * Time.smoothDeltaTime);
 			yield return null;
 		}
 	}

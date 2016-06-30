@@ -65,9 +65,9 @@ public class TP_Controller : MonoBehaviour
 
 		// Electrovision
 		if(Input.GetKeyDown(KeyCode.LeftShift))
-			vision.enabled = true;
-		else if(Input.GetKeyUp(KeyCode.LeftShift))
-			vision.enabled = false;
+			vision.VisionToggle();
+		//else if(Input.GetKeyUp(KeyCode.LeftShift))
+			//vision.VisionToggle();
 
 		// Interact
 		if(Input.GetKeyDown(KeyCode.E))

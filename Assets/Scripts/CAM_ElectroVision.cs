@@ -1,36 +1,57 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[ExecuteInEditMode]
 public class CAM_ElectroVision : MonoBehaviour
 {
-	Camera cam;
+	public Color electroVisionColor;
+	public float electroVisionIntensity = 1f;
+	public float changeVisionSpeed = .5f;
+	public float changeVisionDelay = 1f;
 
-	public Shader visionShader;
-	public Color visionColor = new Color(0f, .05f, .05f, 1f);
+	public static bool visionActive = false;
 
-	void Awake()
+	public void VisionToggle()
 	{
-		cam = GetComponent<Camera>();
+		if(!visionActive)
+		{
+			StopAllCoroutines();
+			StartCoroutine(StartVision());
+			visionActive = true;
+		}
+		else
+		{
+			StopAllCoroutines();
+			StartCoroutine(EndVision());
+			visionActive = false;
+		}
 	}
 
-	void OnValidate()
+	IEnumerator StartVision()
 	{
-		Shader.SetGlobalColor("_VisionColor", visionColor);
+		RenderSettings.ambientIntensity = 0f;
+		RenderSettings.reflectionIntensity = 0f;
+		RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
+		RenderSettings.ambientEquatorColor = electroVisionColor;
+
+		while(RenderSettings.ambientIntensity < electroVisionIntensity)
+		{
+			RenderSettings.ambientIntensity += changeVisionSpeed * Time.deltaTime;
+			RenderSettings.reflectionIntensity -= changeVisionSpeed * Time.deltaTime;
+			yield return null;
+		}
 	}
 
-	void OnEnable()
+	IEnumerator EndVision()
 	{
-		if(visionShader != null)
-			cam.SetReplacementShader(visionShader, "");
+		RenderSettings.ambientIntensity = 0f;
+		RenderSettings.reflectionIntensity = 0f;
+		RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
 
-		cam.clearFlags = CameraClearFlags.SolidColor;
-	}
-
-	void OnDisable()
-	{
-		cam.ResetReplacementShader();
-
-		cam.clearFlags = CameraClearFlags.Skybox;
+		while(RenderSettings.ambientIntensity < electroVisionIntensity)
+		{
+			RenderSettings.ambientIntensity += changeVisionSpeed * Time.deltaTime;
+			RenderSettings.reflectionIntensity += changeVisionSpeed * Time.deltaTime;
+			yield return null;
+		}
 	}
 }
