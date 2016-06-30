@@ -99,6 +99,8 @@ public class TP_Controller : MonoBehaviour
 			{
 				hit.collider.transform.parent.GetComponent<Door_SimpleSlide>().DoorInteract();
 			}
+			else
+				return;
 		}
 	}
 
