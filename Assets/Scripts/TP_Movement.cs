@@ -115,7 +115,7 @@ public class TP_Movement : MonoBehaviour
 		yield return new WaitForSeconds(delay);
 		isAttacking = false;
 		print("AttackEnd");
-		//enemy.GetComponent<AITemplate>().Death();
+		enemy.GetComponent<AITemplate>().Death();
 	}
 
 }

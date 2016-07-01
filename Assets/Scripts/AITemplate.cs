@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(NavMeshAgent))]
+
 public class AITemplate : MonoBehaviour {
 
     public enum AIState {
@@ -9,6 +11,7 @@ public class AITemplate : MonoBehaviour {
 
     #region Inspector Variables
     public Transform[] patrol;
+    public GameObject vizor;
     public float delayTime;
     public float speed;
     public float range;
@@ -23,7 +26,6 @@ public class AITemplate : MonoBehaviour {
 
     Transform target;
     RaycastHit hit;
-    float lineOfSight;
     Vector3 targetLastKnown;
     Vector3 randomLocation;
     bool searchExpire;
@@ -31,12 +33,14 @@ public class AITemplate : MonoBehaviour {
     float targetR;
     AITemplate instance;
     int lineOfSightTime;
+    int changeValue;
+    NavMeshAgent agent;
     #endregion
 
     void Start() {
+        agent = GetComponent<NavMeshAgent>();
         currentPatrolInt = 0;
         delayOver = true;
-
         currentState = AIState.Patrol;
     }
 
@@ -44,47 +48,46 @@ public class AITemplate : MonoBehaviour {
         switch (currentState) {
             case AIState.Patrol:
                 if (patrol.Length > 0) {
-                    if (transform.position == patrol[currentPatrolInt].position) {
-                        if (accending) {
-                            if (currentPatrolInt < patrol.Length - 1)
-                                currentPatrolInt++;
-                            else
-                                accending = false;
-                        } else {
-                            if (currentPatrolInt > 0)
-                                currentPatrolInt--;
-                            else
-                                accending = true;
-                        }
+                    if ((patrol[currentPatrolInt].position - transform.position).magnitude < 0.1f) {
+
+                        if (currentPatrolInt == patrol.Length - 1)
+                            changeValue = -1;
+
+                        if (currentPatrolInt == 0)
+                            changeValue = 1;
+
+                        currentPatrolInt += changeValue;
                         StartCoroutine(Delay(delayTime));
+
                     } else {
                         if (delayOver) {
-                            transform.position = Vector3.MoveTowards(transform.position, patrol[currentPatrolInt].position, speed);
+                            agent.destination = patrol[currentPatrolInt].position;
                             transform.LookAt(patrol[currentPatrolInt]);
+                            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+                            head.transform.eulerAngles = transform.eulerAngles;
                         } else {
                             LookAround();
                         }
                     }
-                } else {
-                    LookAround();
                 }
 
-                if (target != null) {
+                if (target) {
                     currentState = AIState.Alert;
                 }
                 break;
 
             case AIState.Alert:
-                if (target != null) {
+                if (target) {
                     if ((target.position - transform.position).magnitude < range) {
+                        agent.destination = transform.position;
                         Shooting(1);
                     } else {
-                        transform.position = Vector3.MoveTowards(transform.position, target.position, speed);
+                        agent.destination = target.position;
                     }
                     head.transform.LookAt(target);
                 } else {
                     StartCoroutine(Delay(5));
-                    randomLocation = transform.position;
+                    randomLocation = targetLastKnown;
                     currentState = AIState.Search;
                 }
                 break;
@@ -93,11 +96,12 @@ public class AITemplate : MonoBehaviour {
                 if (!delayOver) {
                     RadiusPatrol(targetLastKnown, 10);
                     LookAround();
+                    if (target)
+                        currentState = AIState.Alert;
                 } else {
                     currentState = AIState.Patrol;
                 }
                 break;
-
         }
 
         if (lineOfSightTime > 0) {
@@ -144,13 +148,17 @@ public class AITemplate : MonoBehaviour {
     }
 
     public void RadiusPatrol(Vector3 radiusCentre, float radius) {
-        if (transform.position == randomLocation)
+        if ((transform.position - randomLocation).magnitude < 0.1)
             randomLocation = new Vector3(radiusCentre.x + Random.Range(-radius, radius), radiusCentre.y, radiusCentre.z + Random.Range(-radius, radius));
-        else
-            transform.position = Vector3.MoveTowards(transform.position, randomLocation, speed);
+        agent.SetDestination(randomLocation);
     }
 
-    public void Dead() {
-        Destroy(this, 1);
+    public void Death() {
+        Destroy(vizor);
+        head.gameObject.AddComponent<Rigidbody>();
+        gameObject.AddComponent<Rigidbody>();
+        
+        Destroy(this);       
+        Destroy(agent);
     }
 }

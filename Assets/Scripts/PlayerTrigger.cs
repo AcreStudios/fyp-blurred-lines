@@ -14,7 +14,6 @@ public class PlayerTrigger : MonoBehaviour {
         if (triggered.Length > 0) {
 
             if (triggered.Length == prevCount) {
-                Debug.Log(instance.Count);
                 foreach (AITemplate ai in instance) {
                     ai.Alert(transform);
                 }
