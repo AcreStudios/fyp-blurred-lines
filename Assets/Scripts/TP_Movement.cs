@@ -98,15 +98,21 @@ public class TP_Movement : MonoBehaviour
 	public void AttackFast(GameObject enemy)
 	{
 		// Teleport
-		trans.position = enemy.transform.position - enemy.transform.TransformDirection(0f, 0f, 2f);
+		trans.position = enemy.transform.position - enemy.transform.TransformDirection(0f, 0f, 1.5f);
 		StartCoroutine(PerformAttack(enemy, 1f));
+
+		// Face enemy
+		trans.GetChild(0).GetComponent<FP_Camera>().mouseLook.x = enemy.transform.eulerAngles.y;
 	}
 
 	public void AttackSlow(GameObject enemy)
 	{
 		// Teleport
-		trans.position = enemy.transform.position - enemy.transform.TransformDirection(0f, 0f, 2f);
+		trans.position = enemy.transform.position - enemy.transform.TransformDirection(0f, 0f, 1f);
 		StartCoroutine(PerformAttack(enemy, 5f));
+
+		// Face enemy
+		trans.GetChild(0).GetComponent<FP_Camera>().mouseLook.x = enemy.transform.eulerAngles.y;
 	}
 
 	IEnumerator PerformAttack(GameObject enemy, float delay)
@@ -117,5 +123,4 @@ public class TP_Movement : MonoBehaviour
 		print("AttackEnd");
 		enemy.GetComponent<AITemplate>().Death();
 	}
-
 }

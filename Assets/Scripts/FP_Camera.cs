@@ -5,7 +5,7 @@ public class FP_Camera : MonoBehaviour
 {
 	#region Declare variables
 	GameObject character;
-	Vector2 mouseLook;
+	public Vector2 mouseLook;
 	Vector2 smoothV;
 
 	public float lookSensitivity = 4f;
@@ -35,6 +35,7 @@ public class FP_Camera : MonoBehaviour
 	
 	void Update() 
 	{
+		// Sensitivity of mouse in X,Y axis
 		Vector2 md = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
 
 		float c = lookSensitivity * lookSensitivity * Time.deltaTime;
@@ -48,6 +49,11 @@ public class FP_Camera : MonoBehaviour
 			mouseLook.y = yMax;
 		if(mouseLook.y < -yMax + 1f)
 			mouseLook.y = -yMax;
+
+		if(mouseLook.x > 360)
+			mouseLook.x = 0;
+		else if(mouseLook.x < 0)
+			mouseLook.x = 360;
 
 		trans.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
 		character.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, character.transform.up);

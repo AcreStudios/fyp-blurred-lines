@@ -153,12 +153,20 @@ public class AITemplate : MonoBehaviour {
         agent.SetDestination(randomLocation);
     }
 
-    public void Death() {
+    public void Death()
+	{
         Destroy(vizor);
-        head.gameObject.AddComponent<Rigidbody>();
-        gameObject.AddComponent<Rigidbody>();
-        
-        Destroy(this);       
+
+		// Add rigidbody to head
+		Rigidbody headRb = head.gameObject.AddComponent<Rigidbody>();
+		headRb.AddTorque(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
+
+		// Add rigidbody to body
+		Rigidbody bodyRb = gameObject.AddComponent<Rigidbody>();
+		bodyRb.AddTorque(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
+
+
+		Destroy(this);       
         Destroy(agent);
     }
 }
