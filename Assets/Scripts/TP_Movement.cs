@@ -12,6 +12,8 @@ public class TP_Movement : MonoBehaviour
 
 	public Vector3 moveVector { get; set; }
 	public float verticalVelocity { get; set; }
+
+	bool isAttacking = false;
 	#endregion
 
 	#region Cache components
@@ -30,7 +32,8 @@ public class TP_Movement : MonoBehaviour
 
 	public void MovementUpdate()
 	{
-		CalculateMovement();
+		if(!isAttacking)
+			CalculateMovement();
 		//SnapAlignCharacterWithCamera();
 	}
 
@@ -91,4 +94,28 @@ public class TP_Movement : MonoBehaviour
 		TP_Controller.characterController.height *= 2f;
 		moveSpeed *= 4f;
 	}
+
+	public void AttackFast(GameObject enemy)
+	{
+		// Teleport
+		trans.position = enemy.transform.position - enemy.transform.TransformDirection(0f, 0f, 2f);
+		StartCoroutine(PerformAttack(enemy, 1f));
+	}
+
+	public void AttackSlow(GameObject enemy)
+	{
+		// Teleport
+		trans.position = enemy.transform.position - enemy.transform.TransformDirection(0f, 0f, 2f);
+		StartCoroutine(PerformAttack(enemy, 5f));
+	}
+
+	IEnumerator PerformAttack(GameObject enemy, float delay)
+	{
+		isAttacking = true;
+		yield return new WaitForSeconds(delay);
+		isAttacking = false;
+		print("AttackEnd");
+		//enemy.GetComponent<AITemplate>().Death();
+	}
+
 }

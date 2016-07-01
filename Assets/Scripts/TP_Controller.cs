@@ -66,13 +66,18 @@ public class TP_Controller : MonoBehaviour
 		// Electrovision
 		if(Input.GetKeyDown(KeyCode.LeftShift))
 			vision.VisionToggle();
-		//else if(Input.GetKeyUp(KeyCode.LeftShift))
-			//vision.VisionToggle();
 
 		// Interact
 		if(Input.GetKeyDown(KeyCode.E))
-		{
 			DoInteraction();
+
+		// Sneak Attack
+		if(crouching)
+		{
+			if(Input.GetMouseButtonDown(0))
+				DoAttack(0);
+			else if(Input.GetMouseButtonDown(1))
+				DoAttack(1);
 		}
 
 		if(Input.GetKeyDown(KeyCode.LeftControl))
@@ -96,12 +101,36 @@ public class TP_Controller : MonoBehaviour
 		{
 			Debug.Log(hit.transform.name);
 			if(hit.collider.transform.parent.CompareTag("Door"))
-			{
 				hit.collider.transform.parent.GetComponent<Door_SimpleSlide>().DoorInteract();
+			else
+				return;
+		}
+	}
+
+	void DoAttack(int attackType)
+	{
+		RaycastHit hit;
+		Ray ray = new Ray(Camera.main.transform.position, transform.forward);
+
+		Debug.DrawRay(Camera.main.transform.position, transform.forward * interactRange, Color.red, 1f);
+		if(Physics.Raycast(ray, out hit, interactRange))
+		{
+			Debug.Log(hit.transform.name);
+			if(hit.collider.transform.CompareTag("Enemy"))
+			{
+				print(hit.collider.transform.gameObject);
+				if(attackType == 0) // Fast Attack
+					TP_Movement.instance.AttackFast(hit.collider.transform.gameObject);
+				if(attackType == 1) // Fast Attack
+					TP_Movement.instance.AttackSlow(hit.collider.transform.gameObject);
+
+				DoCrouch();
 			}
 			else
 				return;
 		}
+
+		
 	}
 
 	void DoCrouch()
@@ -109,13 +138,11 @@ public class TP_Controller : MonoBehaviour
 		if(!crouching)
 		{
 			crouching = true;
-
 			TP_Movement.instance.StartCrouch();
 		}
 		else
 		{
 			crouching = false;
-
 			TP_Movement.instance.StopCrouch();
 		}	
 	}
