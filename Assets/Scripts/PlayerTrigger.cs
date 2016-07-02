@@ -12,7 +12,7 @@ public class PlayerTrigger : MonoBehaviour {
     void Update() {
         triggered = Physics.OverlapBox(transform.position, new Vector3(0.5f, 0.5f, 0.5f), Quaternion.identity, 4);
         if (triggered.Length > 0) {
-
+            
             if (triggered.Length == prevCount) {
                 foreach (AITemplate ai in instance) {
                     ai.Alert(transform);

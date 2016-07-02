@@ -48,7 +48,7 @@ public class AITemplate : MonoBehaviour {
         switch (currentState) {
             case AIState.Patrol:
                 if (patrol.Length > 0) {
-                    if ((patrol[currentPatrolInt].position - transform.position).magnitude < 0.1f) {
+                    if ((patrol[currentPatrolInt].position - transform.position).magnitude < 0.5f) {
 
                         if (currentPatrolInt == patrol.Length - 1)
                             changeValue = -1;
@@ -61,6 +61,7 @@ public class AITemplate : MonoBehaviour {
 
                     } else {
                         if (delayOver) {
+
                             agent.destination = patrol[currentPatrolInt].position;
                             transform.LookAt(patrol[currentPatrolInt]);
                             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
@@ -120,7 +121,7 @@ public class AITemplate : MonoBehaviour {
 
     public void Alert(Transform player) {
         if (Physics.Linecast(head.transform.position, player.position, out hit)) {
-            if (hit.transform == player) {
+            if (hit.transform.root == player) {
                 target = player;
                 targetLastKnown = target.position;
                 lineOfSightTime = 2;
