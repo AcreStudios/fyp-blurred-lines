@@ -10,7 +10,7 @@ public class PlayerTrigger : MonoBehaviour {
     int prevCount;
 
     void Update() {
-        triggered = Physics.OverlapBox(transform.position, new Vector3(0.5f, 0.5f, 0.5f), Quaternion.identity, 4);
+        triggered = Physics.OverlapBox(transform.position, new Vector3(0.5f, 0.5f, 0.5f), Quaternion.identity, 2);
         if (triggered.Length > 0) {
             
             if (triggered.Length == prevCount) {

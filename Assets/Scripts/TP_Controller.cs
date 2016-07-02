@@ -109,6 +109,7 @@ public class TP_Controller : MonoBehaviour
 
 	void DoAttack(int attackType)
 	{
+
 		RaycastHit hit;
 		Ray ray = new Ray(Camera.main.transform.position, transform.forward);
 
@@ -116,13 +117,13 @@ public class TP_Controller : MonoBehaviour
 		if(Physics.Raycast(ray, out hit, interactRange))
 		{
 			Debug.Log(hit.transform.name);
-			if(hit.collider.transform.CompareTag("Enemy"))
+			if(hit.collider.transform.root.CompareTag("Enemy"))
 			{
 				print(hit.collider.transform.gameObject);
 				if(attackType == 0) // Fast Attack
-					TP_Movement.instance.AttackFast(hit.collider.transform.gameObject);
+					TP_Movement.instance.AttackFast(hit.transform.root.gameObject);
 				if(attackType == 1) // Fast Attack
-					TP_Movement.instance.AttackSlow(hit.collider.transform.gameObject);
+					TP_Movement.instance.AttackSlow(hit.transform.root.gameObject);
 
 				DoCrouch();
 			}
