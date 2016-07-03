@@ -12,6 +12,7 @@ public class AITemplate : MonoBehaviour {
     #region Inspector Variables
     public Transform[] patrol;
     public GameObject vizor;
+    public GameObject UICanvas;
     public float delayTime;
     public float speed;
     public float range;
@@ -157,6 +158,7 @@ public class AITemplate : MonoBehaviour {
     public void Death()
 	{
         Destroy(vizor);
+        Destroy(UICanvas);
 
 		// Add rigidbody to head
 		Rigidbody headRb = head.gameObject.AddComponent<Rigidbody>();
