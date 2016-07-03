@@ -102,6 +102,8 @@ public class TP_Controller : MonoBehaviour
 			Debug.Log(hit.transform.name);
 			if(hit.collider.transform.parent.CompareTag("Door"))
 				hit.collider.transform.parent.GetComponent<Door_SimpleSlide>().DoorInteract();
+			else if(hit.collider.transform.parent.CompareTag("Lift"))
+				hit.collider.transform.parent.GetComponent<Door_SimpleLift>().DoorInteract();
 			else
 				return;
 		}

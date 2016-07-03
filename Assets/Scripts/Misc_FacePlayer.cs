@@ -5,13 +5,7 @@ using UnityEngine.UI;
 
 public class Misc_FacePlayer : MonoBehaviour 
 {
-	Transform trans;
 	public Canvas eText;
-
-	void Awake()
-	{
-		trans = GetComponent<Transform>();
-	}
 
 	void Start()
 	{
